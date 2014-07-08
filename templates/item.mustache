@@ -1,0 +1,27 @@
+{{>header}}
+<div class="row">
+<ol class="breadcrumb">
+  <li><a href="../index.html">Home</a></li>
+  <li class="active">{{title}}</li>
+</ol>
+</div> <!-- /row-->
+
+<div class="row">
+<ul class="list-unstyled">
+{{#content}}
+	<li><b>{{name}}:</b> {{&value}}</li>
+{{/content}}
+</ul>
+</div> <!-- /row-->
+
+<div class="row">
+{{#images}}
+<div class="col-xs-6 col-md-3">
+  <a href="../{{fullimage_path}}/{{.}}" class="thumbnail">
+    <img src="../{{thumbnail_path}}/{{.}}" alt="{{title}}">
+	  <div>{{.}}</div>
+  </a>
+</div>
+{{/images}}
+</div> <!-- /row-->
+{{>footer}}

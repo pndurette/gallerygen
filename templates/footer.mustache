@@ -1,0 +1,24 @@
+
+	</div> <!-- /container-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<!-- Holder.js-->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js"></script>
+	<script>
+	$.getScript('http://cdn.jsdelivr.net/isotope/1.5.25/jquery.isotope.min.js',function(){
+
+	  /* activate jquery isotope */
+	  $('#boxes').imagesLoaded( function(){
+	    $('#boxes').isotope({
+	      itemSelector : '.item',
+		  columnWidth: '.item'
+	    });
+	  });
+
+	});
+	</script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{{>header}}
+<div class="row" id="boxes">
+{{#items}}
+	  <div class="col-xs-6 col-md-3 item">
+	    <a href="{{name}}/index.html" class="thumbnail">
+	      <img src="{{thumbnail_path}}/{{thumb}}" alt="{{title}}">
+		  <div>{{title}}</div>
+	    </a>
+	  </div>
+{{/items}}
+</div> <!-- /row-->
+{{>footer}}
