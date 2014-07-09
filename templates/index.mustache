@@ -1,10 +1,21 @@
 {{>header}}
+<div class="page-header">
+  <h1>{{title}}<br/><small>{{subtitle}}</small></h1>
+</div>
 <div class="row" id="boxes">
 {{#items}}
 	  <div class="col-xs-6 col-md-3 item">
 	    <a href="{{name}}/index.html" class="thumbnail">
 	      <img src="{{thumbnail_path}}/{{thumb}}" alt="{{title}}">
-		  <div>{{title}}</div>
+		  <div><h4>{{title}}</h4></div>
+		  <div style="position: absolute; top:-10px; left: 25px">
+			<h3><span class="label label-success">{{price}}</span></h3>
+		  </div>
+		  {{#gone}}
+		  <div style="position: absolute; top: -10px; right: 23px">
+			<h3><span class="label label-danger">Gone!</span></h3>
+		  </div>
+		  {{/gone}}
 	    </a>
 	  </div>
 {{/items}}

@@ -23,6 +23,8 @@ def render_page(data, template, destination):
         pass
 
 def gen_image(source, destination, width):
+    """ Create a copy of `source` at `destination` """
+    """ of `width` keeping the ratio """
     img = Image.open(source)
     wpercent = (width/float(img.size[0]))
     hsize = int((float(img.size[1])*float(wpercent)))
@@ -65,18 +67,31 @@ def main():
         try:
             with open(os.path.join(CONTENTS_DIR, p, META_FILE)) as meta_file:
                 page_data = json.load(meta_file)
-                page_data['images'] = get_images_from(os.path.join(CONTENTS_DIR, p))
-                page_data['name'] = p
-                if page_data['thumb'] not in page_data['images']:
-                    error = "'Thumbnail image '%s' does not exist. Check metadata." % page_data['thumb']
-                    raise Exception(error)
+            
+            page_data['images'] = get_images_from(os.path.join(CONTENTS_DIR, p))
+            page_data['name'] = p
+            if page_data['thumb'] not in page_data['images']:
+                error = "'Thumbnail image '%s' does not exist. Check metadata." % page_data['thumb']
+                raise Exception(error)
                 
-                # To reference the images in the template
-                page_data['fullimage_path'] = os.path.join(p, IMAGES_DIR)
-                page_data['thumbnail_path'] = os.path.join(p, IMAGES_DIR, THUMBNAIL_DIR)
-                
-                items.append(page_data)
-        except Exception as e: print(e)
+            # To reference the images in the template
+            page_data['fullimage_path'] = os.path.join(p, IMAGES_DIR)
+            page_data['thumbnail_path'] = os.path.join(p, IMAGES_DIR, THUMBNAIL_DIR)
+               
+            # If there's a file named 'gone.txt', set the item as 'gone'
+            gone_file = os.path.join(CONTENTS_DIR, p, "gone.txt")
+            if os.path.isfile(gone_file):
+                page_data['gone'] = True
+                with open(gone_file) as f:
+                    page_data['gone_to'] = f.read().replace('\n', '')
+            else:
+                    page_data['gone'] = False
+                    page_data['gone_to'] = ""
+
+            items.append(page_data)
+        except Exception as e:
+            error = "[Error] %s: %s. Skipped." % (p, str(e))
+            print(error)
     contents["items"] = items
 
     # Index page
@@ -103,6 +118,8 @@ def main():
             source_dir = os.path.join(CONTENTS_DIR, i['name'], img)
             gen_image(source_dir, os.path.join(images_dir, img), FULL_WIDTH)
             gen_image(source_dir, os.path.join(thumbs_dir, img), THUMBNAIL_WIDTH)
+
+    #print json.dumps(contents, sort_keys=True, indent=4, separators=(',', ': '))
 
 if __name__ == "__main__":
     main()

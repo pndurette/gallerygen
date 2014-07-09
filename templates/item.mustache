@@ -1,27 +1,34 @@
 {{>header}}
+<div class="page-header">
+  <h1>{{title}} <span class="label label-success">{{price}}</span></h1>
+</div>
+
 <div class="row">
+<div class="col-md-12">
+
 <ol class="breadcrumb">
   <li><a href="../index.html">Home</a></li>
   <li class="active">{{title}}</li>
 </ol>
-</div> <!-- /row-->
 
-<div class="row">
 <ul class="list-unstyled">
 {{#content}}
 	<li><b>{{name}}:</b> {{&value}}</li>
 {{/content}}
 </ul>
-</div> <!-- /row-->
+</div> <!-- /col-->
 
-<div class="row">
 {{#images}}
 <div class="col-xs-6 col-md-3">
   <a href="../{{fullimage_path}}/{{.}}" class="thumbnail">
     <img src="../{{thumbnail_path}}/{{.}}" alt="{{title}}">
-	  <div>{{.}}</div>
   </a>
-</div>
+</div> <!-- /col-->
 {{/images}}
 </div> <!-- /row-->
+
+{{#gone}}
+<h3><span class="label label-danger">Gone!</span> ({{gone_to}})</h3>
+{{/gone}}
+
 {{>footer}}
